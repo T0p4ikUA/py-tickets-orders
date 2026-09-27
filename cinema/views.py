@@ -137,9 +137,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
     def get_serializer_class(self):
-        serializer = self.serializer_class()
-
         if self.action == "list":
-            serializer = OrderListSerializer()
-
-        return serializer
+            return OrderListSerializer
+        return OrderSerializer
