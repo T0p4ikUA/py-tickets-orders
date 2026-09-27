@@ -66,7 +66,6 @@ class MovieViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(actor_id__in=actors_ids)
 
         if title:
-            title_ids = self._params_to_ints(title)
             queryset = queryset.filter(title__icontains=title)
 
         if self.action in ("list", "retrieve"):
@@ -88,8 +87,8 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = self.queryset
 
-        date = self.queryset.query_params.get("date")
-        movie = self.queryset.query_params.get("movie")
+        date = self.request.query_params.get("date")
+        movie = self.request.query_params.get("movie")
 
         if date:
             date_obj = datetime.strptime(date, "%Y-%m-%d").date()
